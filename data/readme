@@ -1,0 +1,158 @@
+-------商品用户行为数据goodsdaily----------
+    是否有空值：
+    data_date          False
+    goods_id           False
+    goods_click        False
+    cart_click         False
+    favorites_click    False
+    sales_uv           False
+    onsale_days        False
+    dtype: bool
+
+    数据量： (35201588, 7)
+    起止日期：20180316---20170301
+    goods_id是否唯一： False
+	goods_id数量 423453
+	数据总量： 35201588
+    所有商品的最大最小在售天数：17606-0
+	goods_id+data_date是否唯一：True
+
+    RangeIndex: 35201588 entries, 0 to 35201587
+    Data columns (total 7 columns):
+    data_date          int64
+    goods_id           object
+    goods_click        int64
+    cart_click         int64
+    favorites_click    int64
+    sales_uv           int64
+    onsale_days        int64
+    dtypes: int64(6), object(1)
+	
+-------商品信息goods_info-----------------------
+	数据量： (423452, 10)
+	是否有空值： 
+	goods_id         False
+	cat_level1_id    False
+	cat_level2_id    False
+	cat_level3_id    False
+	cat_level4_id    False
+	cat_level5_id    False
+	cat_level6_id    False
+	cat_level7_id    False
+	goods_season     False
+	brand_id         False
+	dtype: bool
+	
+	goods_id是否唯一： True
+	
+	goods_id         423452 non-null object
+	cat_level1_id    423452 non-null int64
+	cat_level2_id    423452 non-null int64
+	cat_level3_id    423452 non-null int64
+	cat_level4_id    423452 non-null int64
+	cat_level5_id    423452 non-null int64
+	cat_level6_id    423452 non-null int64
+	cat_level7_id    423452 non-null int64
+	goods_season     423452 non-null int64
+	brand_id         423452 non-null int64
+	
+	总共七级类目的值：
+	cat_level1_id      51
+	cat_level2_id     416
+	cat_level3_id    1099
+	cat_level4_id     414
+	cat_level5_id      91
+	cat_level6_id       1
+	cat_level7_id       1
+	goods_season        8
+	brand_id         2113
+	dtype: int64
+	
+	季节属性值
+	[ 0  6  2  1  3  4  5 10]
+	
+----------------------商品销量表goodsale-------------------------
+	数据量： (7325028, 6)
+	
+	是否有空值：
+	data_date             False
+	goods_id              False
+	sku_id                False
+	goods_num             False
+	goods_price           False
+	orginal_shop_price    False
+	
+	起止日期20180316-20170301
+	
+	data_date             int64
+	goods_id              object
+	sku_id                object
+	goods_num             int64
+	goods_price           object
+	orginal_shop_price    object
+
+	goods_id是否唯一: False
+	sku_id是否唯一: False
+	goods_id与data_date连接是否唯一: False
+	sku_id与data_date连接是否唯一: True
+	goods_id数量 195498
+	sku_id数量 630742
+	数据总量： 7325028
+
+--------------商品sku映射表	goods_sku_relation--------------------
+	数据量： (3245170, 2)
+	sku_id是否唯一： True
+	goods_id是否唯一： False
+	goods_id数量： 423453
+	
+	是否有空值：
+	sku_id      False
+	goods_id    False
+	dtype: bool
+
+---------------商品促销价格表goods_promote_price---------------------
+	数据量： (24016430, 6)
+	是否有空值： 
+	data_date             False
+	goods_id              False
+	shop_price            False
+	promote_price         False
+	promote_start_time    False
+	promote_end_time      False
+	dtype: bool
+	
+	goods_id是否唯一： False
+	goods_id与data_date连接是否唯一: True
+	goods_id数量： 423453
+	data_date             int64
+	goods_id              object
+	shop_price            float64
+	promote_price         float64
+	promote_start_time    object
+	promote_end_time      object
+	
+	起止日期20180316-20180116
+	data_date goods_id  shop_price  promote_price   promote_start_time  \
+	20180129   GBLrYn      289.00            0.0  1970-01-01 08:00:00   
+	20180129   GfrkEb       17.99            0.0  1970-01-01 08:00:00   
+	20180129   GD8pMl      412.00            0.0  1970-01-01 08:00:00   
+
+      promote_end_time  
+	1970-01-01 08:00:00  
+	1970-01-01 08:00:00  
+	1970-01-01 08:00:00  
+------------------平台活动时间表marketing--------------------------
+	数据量： (416, 3)
+	是否有空值： 
+	data_date    False
+	marketing    False
+	plan         False
+	dtype: bool
+	
+	data_date起止时间：20180604-20170301
+	data_date是否唯一： True
+	
+	活动类型marketing种类 6
+	活动类型marketing值 [-1  3  5  0  6  1]
+	活动节奏plan种类 4
+	活动节奏plan值 [0 1 2 3]
