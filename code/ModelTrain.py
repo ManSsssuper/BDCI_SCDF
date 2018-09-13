@@ -18,6 +18,6 @@ def modelTrain():
         clf = RandomForestRegressor(n_estimators=100, max_depth=6, min_samples_split=4)
         print("trainfinish")
         clf.fit(trainX, trainy)
-        result = pd.concat([result, clf.predict(test)], axis=1)
+        result = pd.concat([result, pd.Series(clf.predict(test))], axis=1)
     result.columns = ["sku_id", "week1", "week2", "week3", "week4", "week5"]
     result.to_csv("../result/submit.csv", sep=",", index=None)

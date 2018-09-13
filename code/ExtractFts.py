@@ -24,15 +24,15 @@ def extractFts(ftsDelta=80):
     goodsInfoData = goodsInfoData.drop(["cat_level6_id", "cat_level7_id"], axis=1)
 
     trainFts = pd.DataFrame()
-    for timeSlice in trainTimeSlice:
-        labelData = saleData[(saleData["data_date"] >= timeSlice[2]) & (saleData["data_date"] <= timeSlice[3])]
-        ftsData = saleData[(saleData["data_date"] >= timeSlice[0]) & (saleData["data_date"] <= timeSlice[1])]
-        ftsData = ftsData[ftsData["sku_id"].isin(labelData["sku_id"])]
-        trainFts = pd.concat(
-            [trainFts, extract(goodsdailyData, goodsPromoteData, goodsInfoData, ftsData, labelData, timeSlice)], axis=0)
+    # for timeSlice in trainTimeSlice:
+    #     labelData = saleData[(saleData["data_date"] >= timeSlice[2]) & (saleData["data_date"] <= timeSlice[3])]
+    #     ftsData = saleData[(saleData["data_date"] >= timeSlice[0]) & (saleData["data_date"] <= timeSlice[1])]
+    #     ftsData = ftsData[ftsData["sku_id"].isin(labelData["sku_id"])]
+    #     trainFts = pd.concat(
+    #         [trainFts, extract(goodsdailyData, goodsPromoteData, goodsInfoData, ftsData, labelData, timeSlice)], axis=0)
 
     ftsData = saleData[(saleData["data_date"] >= testTimeSlice[0]) & (saleData["data_date"] <= testTimeSlice[1])]
-    trainFts.to_csv("../features/trainFts.csv", sep=",", index=None)
+    # trainFts.to_csv("../features/trainFts.csv", sep=",", index=None)
 
     testFts = extract(goodsdailyData, goodsPromoteData, goodsInfoData, ftsData, None, testTimeSlice, train=False)
     testFts.to_csv("../features/testFts.csv", sep=",", index=None)
@@ -41,16 +41,19 @@ def extractFts(ftsDelta=80):
 
 def extract(goodsdailyData, goodsPromoteData, goodsInfoData, ftsData, labelData, timeSlice, train=True):
     # 格式化数据
-    ftsData["goods_price"] = ftsData["goods_price"].astype(float)
-    ftsData["orginal_shop_price"] = ftsData["orginal_shop_price"].astype(float)
+    # ftsData["goods_price"] = ftsData["goods_price"].astype(float)
+    # ftsData["orginal_shop_price"] = ftsData["orginal_shop_price"].astype(float)
+    ftsData["goods_price"] = ftsData["goods_price"].apply(lambda x: float("".join(x.split(","))))
+    ftsData["orginal_shop_price"] = ftsData["orginal_shop_price"].apply(lambda x: float("".join(x.split(","))))
+
     if train:
         fts = labelData[["sku_id", "goods_id"]].drop_duplicates().reset_index(drop=True)
     else:
         testData = pd.read_csv("../data/submit_example.csv", sep=",", index_col=None)
         relation = pd.read_csv("../data/goods_sku_relation.csv", sep=",", index_col=None)
         fts = relation[relation["sku_id"].isin(testData["sku_id"])][["sku_id", "goods_id"]].reset_index(drop=True)
-    goods_id = pd.DataFrame(labelData["goods_id"].unique())
-    goods_id.columns = ["goods_id"]
+    # goods_id = pd.DataFrame(labelData["goods_id"].unique())
+    # goods_id.columns = ["goods_id"]
     if train:
         # 获取标记
         week1 = timeSlice[2]
@@ -202,9 +205,6 @@ def extract(goodsdailyData, goodsPromoteData, goodsInfoData, ftsData, labelData,
         fts = pd.concat([fts, labels], axis=1)
     print("生成特征：", fts.shape)
     return fts
-
-
-extractFts()
 
 # import datetime as dt
 # dates = []

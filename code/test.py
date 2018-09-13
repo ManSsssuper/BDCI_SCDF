@@ -3,5 +3,5 @@
 from code import ExtractFts
 from code import ModelTrain
 
-ExtractFts.extract()
+# ExtractFts.extractFts()
 ModelTrain.modelTrain()
